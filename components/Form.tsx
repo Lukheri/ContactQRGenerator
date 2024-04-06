@@ -82,12 +82,11 @@ const Form: React.FC = () => {
           Fill in the form below to generate your own QR code for your contact
           information.
         </p>
-
         <form
           onSubmit={handleSubmit}
           className='mb-0 mt-6 space-y-4 rounded-lg p-4 shadow-lg sm:p-6 lg:p-8'
         >
-          <div className='grid grid-cols-2 gap-4'>
+          <div className='grid gap-4 sm:grid-cols-2'>
             <div>
               <input
                 type='text'
@@ -97,11 +96,12 @@ const Form: React.FC = () => {
                 value={formData.firstName}
                 onChange={handleChange}
               />
-              {errors.firstName && (
-                <p className='text-xs italic text-red-500'>
-                  {errors.firstName}
-                </p>
-              )}
+              <p
+                style={{ opacity: errors.firstName ? 1 : 0 }}
+                className='text-xs italic text-red-500'
+              >
+                {errors.firstName || 'Placeholder'}
+              </p>
             </div>
             <div>
               <input
@@ -112,13 +112,16 @@ const Form: React.FC = () => {
                 value={formData.lastName}
                 onChange={handleChange}
               />
-              {errors.lastName && (
-                <p className='text-xs italic text-red-500'>{errors.lastName}</p>
-              )}
+              <p
+                style={{ opacity: errors.lastName ? 1 : 0 }}
+                className='text-xs italic text-red-500'
+              >
+                {errors.lastName || 'Placeholder'}
+              </p>
             </div>
           </div>
 
-          <div className='grid grid-cols-2 gap-4'>
+          <div className='grid gap-4 sm:grid-cols-2'>
             <div>
               <input
                 type='date'
@@ -127,11 +130,12 @@ const Form: React.FC = () => {
                 value={formData.birthdate}
                 onChange={handleChange}
               />
-              {errors.birthdate && (
-                <p className='text-xs italic text-red-500'>
-                  {errors.birthdate}
-                </p>
-              )}
+              <p
+                style={{ opacity: errors.birthdate ? 1 : 0 }}
+                className='text-xs italic text-red-500'
+              >
+                {errors.birthdate || 'Placeholder'}
+              </p>
             </div>
             <div>
               <select
@@ -145,9 +149,12 @@ const Form: React.FC = () => {
                 <option value='female'>Female</option>
                 <option value='other'>Other</option>
               </select>
-              {errors.gender && (
-                <p className='text-xs italic text-red-500'>{errors.gender}</p>
-              )}
+              <p
+                style={{ opacity: errors.gender ? 1 : 0 }}
+                className='text-xs italic text-red-500'
+              >
+                {errors.gender || 'Placeholder'}
+              </p>
             </div>
           </div>
 
@@ -160,9 +167,12 @@ const Form: React.FC = () => {
               value={formData.address}
               onChange={handleChange}
             />
-            {errors.address && (
-              <p className='text-xs italic text-red-500'>{errors.address}</p>
-            )}
+            <p
+              style={{ opacity: errors.address ? 1 : 0 }}
+              className='text-xs italic text-red-500'
+            >
+              {errors.address || 'Placeholder'}
+            </p>
           </div>
 
           <div>
@@ -174,9 +184,12 @@ const Form: React.FC = () => {
               value={formData.email}
               onChange={handleChange}
             />
-            {errors.email && (
-              <p className='text-xs italic text-red-500'>{errors.email}</p>
-            )}
+            <p
+              style={{ opacity: errors.email ? 1 : 0 }}
+              className='text-xs italic text-red-500'
+            >
+              {errors.email || 'Placeholder'}
+            </p>
           </div>
 
           <div>
@@ -188,11 +201,12 @@ const Form: React.FC = () => {
               value={formData.contactNumber}
               onChange={handleChange}
             />
-            {errors.contactNumber && (
-              <p className='text-xs italic text-red-500'>
-                {errors.contactNumber}
-              </p>
-            )}
+            <p
+              style={{ opacity: errors.contactNumber ? 1 : 0 }}
+              className='text-xs italic text-red-500'
+            >
+              {errors.contactNumber || 'Placeholder'}
+            </p>
           </div>
 
           <div>
@@ -204,9 +218,12 @@ const Form: React.FC = () => {
               value={formData.password}
               onChange={handleChange}
             />
-            {errors.password && (
-              <p className='text-xs italic text-red-500'>{errors.password}</p>
-            )}
+            <p
+              style={{ opacity: errors.password ? 1 : 0 }}
+              className='text-xs italic text-red-500'
+            >
+              {errors.password || 'Placeholder'}
+            </p>
           </div>
 
           <button
