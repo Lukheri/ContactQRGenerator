@@ -1,6 +1,7 @@
 'use client'
 import React, { useState } from 'react'
 import { FormData, FormErrors } from '@/types/FormTypes'
+import QRComponent from './QRComponent'
 
 const Form: React.FC = () => {
   const [formData, setFormData] = useState<FormData>({
@@ -13,6 +14,7 @@ const Form: React.FC = () => {
     contactNumber: '',
     password: '',
   })
+  const [isFlipped, setIsFlipped] = useState<boolean>(false)
 
   const [errors, setErrors] = useState<FormErrors>({})
 
@@ -69,6 +71,7 @@ const Form: React.FC = () => {
 
     if (validateForm()) {
       console.log('Form Data:', formData)
+      setIsFlipped(true)
     }
   }
 
@@ -82,157 +85,169 @@ const Form: React.FC = () => {
           Fill in the form below to generate your own QR code for your contact
           information.
         </p>
-        <form
-          onSubmit={handleSubmit}
-          className='mb-0 mt-6 space-y-4 rounded-lg p-4 shadow-lg sm:p-6 lg:p-8'
-        >
-          <div className='grid gap-4 sm:grid-cols-2'>
-            <div>
-              <input
-                type='text'
-                name='firstName'
-                className='w-full rounded-lg border-gray-200 p-4 text-sm shadow-sm'
-                placeholder='First Name'
-                value={formData.firstName}
-                onChange={handleChange}
-              />
-              <p
-                style={{ opacity: errors.firstName ? 1 : 0 }}
-                className='text-xs italic text-red-500'
-              >
-                {errors.firstName || 'Placeholder'}
-              </p>
-            </div>
-            <div>
-              <input
-                type='text'
-                name='lastName'
-                className='w-full rounded-lg border-gray-200 p-4 text-sm shadow-sm'
-                placeholder='Last Name'
-                value={formData.lastName}
-                onChange={handleChange}
-              />
-              <p
-                style={{ opacity: errors.lastName ? 1 : 0 }}
-                className='text-xs italic text-red-500'
-              >
-                {errors.lastName || 'Placeholder'}
-              </p>
-            </div>
-          </div>
-
-          <div className='grid gap-4 sm:grid-cols-2'>
-            <div>
-              <input
-                type='date'
-                name='birthdate'
-                className='w-full rounded-lg border-gray-200 p-4 text-sm shadow-sm'
-                value={formData.birthdate}
-                onChange={handleChange}
-              />
-              <p
-                style={{ opacity: errors.birthdate ? 1 : 0 }}
-                className='text-xs italic text-red-500'
-              >
-                {errors.birthdate || 'Placeholder'}
-              </p>
-            </div>
-            <div>
-              <select
-                name='gender'
-                className='w-full rounded-lg border-gray-200 p-4 text-sm shadow-sm'
-                value={formData.gender}
-                onChange={handleChange}
-              >
-                <option value=''>Select Gender</option>
-                <option value='male'>Male</option>
-                <option value='female'>Female</option>
-                <option value='other'>Other</option>
-              </select>
-              <p
-                style={{ opacity: errors.gender ? 1 : 0 }}
-                className='text-xs italic text-red-500'
-              >
-                {errors.gender || 'Placeholder'}
-              </p>
-            </div>
-          </div>
-
-          <div>
-            <input
-              type='text'
-              name='address'
-              className='w-full rounded-lg border-gray-200 p-4 text-sm shadow-sm'
-              placeholder='Address'
-              value={formData.address}
-              onChange={handleChange}
-            />
-            <p
-              style={{ opacity: errors.address ? 1 : 0 }}
-              className='text-xs italic text-red-500'
-            >
-              {errors.address || 'Placeholder'}
-            </p>
-          </div>
-
-          <div>
-            <input
-              type='email'
-              name='email'
-              className='w-full rounded-lg border-gray-200 p-4 text-sm shadow-sm'
-              placeholder='Enter email'
-              value={formData.email}
-              onChange={handleChange}
-            />
-            <p
-              style={{ opacity: errors.email ? 1 : 0 }}
-              className='text-xs italic text-red-500'
-            >
-              {errors.email || 'Placeholder'}
-            </p>
-          </div>
-
-          <div>
-            <input
-              type='tel'
-              name='contactNumber'
-              className='w-full rounded-lg border-gray-200 p-4 text-sm shadow-sm'
-              placeholder='Contact Number'
-              value={formData.contactNumber}
-              onChange={handleChange}
-            />
-            <p
-              style={{ opacity: errors.contactNumber ? 1 : 0 }}
-              className='text-xs italic text-red-500'
-            >
-              {errors.contactNumber || 'Placeholder'}
-            </p>
-          </div>
-
-          <div>
-            <input
-              type='password'
-              name='password'
-              className='w-full rounded-lg border-gray-200 p-4 text-sm shadow-sm'
-              placeholder='Enter password'
-              value={formData.password}
-              onChange={handleChange}
-            />
-            <p
-              style={{ opacity: errors.password ? 1 : 0 }}
-              className='text-xs italic text-red-500'
-            >
-              {errors.password || 'Placeholder'}
-            </p>
-          </div>
-
-          <button
-            type='submit'
-            className='block w-full rounded-lg bg-indigo-600 px-5 py-3 text-sm font-medium text-white'
+        <div className='flip-card'>
+          <div
+            className='flip-card-inner'
+            style={{ transform: `${isFlipped ? 'rotateY(180deg)' : ''}` }}
           >
-            Generate QR
-          </button>
-        </form>
+            <div className='flip-card-front'>
+              <form
+                onSubmit={handleSubmit}
+                className='mb-0 mt-6 space-y-4 p-4 sm:p-6 lg:p-8'
+              >
+                <div className='grid grid-cols-2 gap-4'>
+                  <div>
+                    <input
+                      type='text'
+                      name='firstName'
+                      className='w-full rounded-lg border-gray-200 p-4 text-sm shadow-sm'
+                      placeholder='First Name'
+                      value={formData.firstName}
+                      onChange={handleChange}
+                    />
+                    <p
+                      style={{ opacity: errors.firstName ? 1 : 0 }}
+                      className='text-xs italic text-red-500'
+                    >
+                      {errors.firstName || 'Placeholder'}
+                    </p>
+                  </div>
+                  <div>
+                    <input
+                      type='text'
+                      name='lastName'
+                      className='w-full rounded-lg border-gray-200 p-4 text-sm shadow-sm'
+                      placeholder='Last Name'
+                      value={formData.lastName}
+                      onChange={handleChange}
+                    />
+                    <p
+                      style={{ opacity: errors.lastName ? 1 : 0 }}
+                      className='text-xs italic text-red-500'
+                    >
+                      {errors.lastName || 'Placeholder'}
+                    </p>
+                  </div>
+                </div>
+
+                <div className='grid grid-cols-2 gap-4'>
+                  <div>
+                    <input
+                      type='date'
+                      name='birthdate'
+                      className='w-full rounded-lg border-gray-200 p-4 text-sm shadow-sm'
+                      value={formData.birthdate}
+                      onChange={handleChange}
+                    />
+                    <p
+                      style={{ opacity: errors.birthdate ? 1 : 0 }}
+                      className='text-xs italic text-red-500'
+                    >
+                      {errors.birthdate || 'Placeholder'}
+                    </p>
+                  </div>
+                  <div>
+                    <select
+                      name='gender'
+                      className='w-full rounded-lg border-gray-200 p-4 text-sm shadow-sm'
+                      value={formData.gender}
+                      onChange={handleChange}
+                    >
+                      <option value=''>Select Gender</option>
+                      <option value='male'>Male</option>
+                      <option value='female'>Female</option>
+                      <option value='other'>Other</option>
+                    </select>
+                    <p
+                      style={{ opacity: errors.gender ? 1 : 0 }}
+                      className='text-xs italic text-red-500'
+                    >
+                      {errors.gender || 'Placeholder'}
+                    </p>
+                  </div>
+                </div>
+
+                <div>
+                  <input
+                    type='text'
+                    name='address'
+                    className='w-full rounded-lg border-gray-200 p-4 text-sm shadow-sm'
+                    placeholder='Address'
+                    value={formData.address}
+                    onChange={handleChange}
+                  />
+                  <p
+                    style={{ opacity: errors.address ? 1 : 0 }}
+                    className='text-xs italic text-red-500'
+                  >
+                    {errors.address || 'Placeholder'}
+                  </p>
+                </div>
+
+                <div>
+                  <input
+                    type='email'
+                    name='email'
+                    className='w-full rounded-lg border-gray-200 p-4 text-sm shadow-sm'
+                    placeholder='Enter email'
+                    value={formData.email}
+                    onChange={handleChange}
+                  />
+                  <p
+                    style={{ opacity: errors.email ? 1 : 0 }}
+                    className='text-xs italic text-red-500'
+                  >
+                    {errors.email || 'Placeholder'}
+                  </p>
+                </div>
+
+                <div>
+                  <input
+                    type='tel'
+                    name='contactNumber'
+                    className='w-full rounded-lg border-gray-200 p-4 text-sm shadow-sm'
+                    placeholder='Contact Number'
+                    value={formData.contactNumber}
+                    onChange={handleChange}
+                  />
+                  <p
+                    style={{ opacity: errors.contactNumber ? 1 : 0 }}
+                    className='text-xs italic text-red-500'
+                  >
+                    {errors.contactNumber || 'Placeholder'}
+                  </p>
+                </div>
+
+                <div>
+                  <input
+                    type='password'
+                    name='password'
+                    className='w-full rounded-lg border-gray-200 p-4 text-sm shadow-sm'
+                    placeholder='Enter password'
+                    value={formData.password}
+                    onChange={handleChange}
+                  />
+                  <p
+                    style={{ opacity: errors.password ? 1 : 0 }}
+                    className='text-xs italic text-red-500'
+                  >
+                    {errors.password || 'Placeholder'}
+                  </p>
+                </div>
+
+                <button
+                  type='submit'
+                  className='block w-full rounded-lg bg-indigo-600 px-5 py-3 text-sm font-medium text-white'
+                >
+                  Generate QR
+                </button>
+              </form>
+            </div>
+            <div className='flip-card-back'>
+              <QRComponent id='test' setIsFlipped={setIsFlipped} />
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   )
