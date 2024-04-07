@@ -86,7 +86,6 @@ const Form: React.FC = () => {
     setSubmitting(true)
 
     if (validateForm()) {
-      console.log('Form Data:', formData)
       try {
         const res = await fetch('/api/user', {
           method: 'POST',
@@ -110,7 +109,6 @@ const Form: React.FC = () => {
           const data = await res.json()
 
           setNewUserID(data.id)
-          console.log(data)
           setIsFlipped(true)
         } else {
           console.log('Create Failed')

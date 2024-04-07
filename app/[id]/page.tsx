@@ -30,7 +30,6 @@ const Page = ({ params }: { params: { id: string } }) => {
 
       if (response.status === 201) {
         const data = await response.json()
-        console.log(data.data, 'yer')
         setUserData(data.data)
       } else {
         throw new Error('Request failed')
