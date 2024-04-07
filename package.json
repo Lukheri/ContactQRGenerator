@@ -10,7 +10,9 @@
   },
   "dependencies": {
     "@tailwindcss/forms": "^0.5.7",
+    "@types/mongodb": "^4.0.7",
     "lucide-react": "^0.365.0",
+    "mongoose": "^8.3.0",
     "next": "14.1.4",
     "react": "^18",
     "react-dom": "^18",
