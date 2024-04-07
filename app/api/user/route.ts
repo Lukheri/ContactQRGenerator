@@ -1,19 +1,35 @@
-import { NextRequest, NextResponse } from "next/server"
+import { NextRequest, NextResponse } from "next/server";
 import { connectMongoDB } from "@/lib/mongodb";
 import User from "@/models/user";
 
-export async function POST(req: NextRequest){
+export async function POST(req: NextRequest) {
     try {
-        const {name, description, exercises, userEmail} = await req.json()
+        const { firstName, lastName, birthdate, gender, address, email, contactNumber, password } = await req.json();
 
-        await connectMongoDB()
+        await connectMongoDB();
 
-        await User.create({name, description, exercises, userEmail})
-        
-        return NextResponse.json({message: "User created"}, {status:201})
+        const user = await User.create({
+            firstName,
+            lastName,
+            birthdate,
+            gender,
+            address,
+            email,
+            contactNumber,
+            password
+        });
+
+        return NextResponse.json({
+            message: "User created successfully",
+            id: user._id
+        }, { status: 201 });
+
     } catch (error) {
+        console.error("Error creating user:", error);
+
         return NextResponse.json(
-            {message: "Error creating routine"}, {status: 500}
-        )
+            { message: "Error creating user" }, 
+            { status: 500 }
+        );
     }
 }

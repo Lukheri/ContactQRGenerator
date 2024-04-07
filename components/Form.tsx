@@ -15,6 +15,7 @@ const Form: React.FC = () => {
     password: '',
   })
   const [isFlipped, setIsFlipped] = useState<boolean>(false)
+  const [newUserID, setNewUserID] = useState<string>('')
 
   const [errors, setErrors] = useState<FormErrors>({})
 
@@ -66,11 +67,41 @@ const Form: React.FC = () => {
     return isValid
   }
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
     if (validateForm()) {
       console.log('Form Data:', formData)
+      try {
+        const res = await fetch('/api/user', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(formData),
+        })
+
+        if (res.ok) {
+          setFormData({
+            firstName: '',
+            lastName: '',
+            birthdate: '',
+            gender: '',
+            address: '',
+            email: '',
+            contactNumber: '',
+            password: '',
+          })
+          const data = await res.json()
+
+          setNewUserID(data.id)
+          console.log(data)
+        } else {
+          console.log('Create Failed')
+        }
+      } catch (error) {
+        console.log('Error in Create User: ', error)
+      }
       setIsFlipped(true)
     }
   }
@@ -244,7 +275,7 @@ const Form: React.FC = () => {
               </form>
             </div>
             <div className='flip-card-back'>
-              <QRComponent id='test' setIsFlipped={setIsFlipped} />
+              <QRComponent id={newUserID} setIsFlipped={setIsFlipped} />
             </div>
           </div>
         </div>
