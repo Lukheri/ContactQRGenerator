@@ -151,6 +151,7 @@ const Form: React.FC = () => {
                       placeholder='First Name'
                       value={formData.firstName}
                       onChange={handleChange}
+                      disabled={submitting}
                     />
                     <p
                       style={{ opacity: errors.firstName ? 1 : 0 }}
@@ -167,6 +168,7 @@ const Form: React.FC = () => {
                       placeholder='Last Name'
                       value={formData.lastName}
                       onChange={handleChange}
+                      disabled={submitting}
                     />
                     <p
                       style={{ opacity: errors.lastName ? 1 : 0 }}
@@ -185,6 +187,7 @@ const Form: React.FC = () => {
                       className='w-full rounded-lg border-gray-200 p-4 text-sm shadow-sm'
                       value={formData.birthdate}
                       onChange={handleChange}
+                      disabled={submitting}
                       min='1900-01-01'
                       max={new Date().toISOString().split('T')[0]}
                     />
@@ -201,6 +204,7 @@ const Form: React.FC = () => {
                       className='w-full rounded-lg border-gray-200 p-4 text-sm shadow-sm'
                       value={formData.gender}
                       onChange={handleChange}
+                      disabled={submitting}
                     >
                       <option value=''>Select Gender</option>
                       <option value='male'>Male</option>
@@ -224,6 +228,7 @@ const Form: React.FC = () => {
                     placeholder='Address'
                     value={formData.address}
                     onChange={handleChange}
+                    disabled={submitting}
                   />
                   <p
                     style={{ opacity: errors.address ? 1 : 0 }}
@@ -241,6 +246,7 @@ const Form: React.FC = () => {
                     placeholder='Enter email'
                     value={formData.email}
                     onChange={handleChange}
+                    disabled={submitting}
                   />
                   <p
                     style={{ opacity: errors.email ? 1 : 0 }}
@@ -258,6 +264,7 @@ const Form: React.FC = () => {
                     placeholder='Contact Number'
                     value={formData.contactNumber}
                     onChange={handleContactChange}
+                    disabled={submitting}
                   />
                   <p
                     style={{ opacity: errors.contactNumber ? 1 : 0 }}
@@ -275,6 +282,7 @@ const Form: React.FC = () => {
                     placeholder='Enter password'
                     value={formData.password}
                     onChange={handleChange}
+                    disabled={submitting}
                   />
                   <p
                     style={{ opacity: errors.password ? 1 : 0 }}
