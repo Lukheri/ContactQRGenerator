@@ -95,21 +95,6 @@ const Page = ({ params }: { params: { id: string } }) => {
 
             <h1 className='px-2 text-sm'>{userData?.email}</h1>
           </div>
-          <div className='mt-4 flex items-center text-gray-700'>
-            <Lock />
-
-            {showPassword ? (
-              <h1 className='px-2 text-sm'>{userData?.password}</h1>
-            ) : (
-              <button
-                onClick={handleShowPassword}
-                className='ml-2 inline-flex items-center gap-2 rounded-md bg-blue-500 px-4 py-2 text-sm text-white shadow-sm'
-              >
-                <Eye size={18} />
-                Show
-              </button>
-            )}
-          </div>
         </div>
       </div>
       {!userData && (
@@ -121,7 +106,6 @@ const Page = ({ params }: { params: { id: string } }) => {
             <div className='h-6 w-full animate-pulse rounded-md bg-neutral-400/50'></div>
             <div className='h-6 w-2/4 animate-pulse rounded-md bg-neutral-400/50'></div>
             <div className='h-6 w-4/5 animate-pulse rounded-md bg-neutral-400/50'></div>
-            <div className='h-6 w-2/4 animate-pulse rounded-md bg-neutral-400/50'></div>
           </div>
         </div>
       )}

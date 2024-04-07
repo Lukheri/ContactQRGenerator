@@ -9,8 +9,11 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@sefinek/email-validator": "^1.0.2",
     "@tailwindcss/forms": "^0.5.7",
+    "@types/bcryptjs": "^2.4.6",
     "@types/mongodb": "^4.0.7",
+    "bcryptjs": "^2.4.3",
     "lucide-react": "^0.365.0",
     "mongoose": "^8.3.0",
     "next": "14.1.4",

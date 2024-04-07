@@ -2,6 +2,7 @@
 import React, { useState } from 'react'
 import { FormData, FormErrors } from '@/types/FormTypes'
 import QRComponent from './QRComponent'
+import emailValidator from '@sefinek/email-validator'
 
 const Form: React.FC = () => {
   const [formData, setFormData] = useState<FormData>({
@@ -15,6 +16,7 @@ const Form: React.FC = () => {
     password: '',
   })
   const [isFlipped, setIsFlipped] = useState<boolean>(false)
+  const [submitting, setSubmitting] = useState<boolean>(false)
   const [newUserID, setNewUserID] = useState<string>('')
 
   const [errors, setErrors] = useState<FormErrors>({})
@@ -24,6 +26,14 @@ const Form: React.FC = () => {
   ) => {
     const { name, value } = e.target
     setFormData((prevState) => ({ ...prevState, [name]: value }))
+  }
+
+  function handleContactChange(
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+  ) {
+    const { name, value } = e.target
+    const newValue = value.replace(/[^0-9]/g, '')
+    setFormData((prevState) => ({ ...prevState, [name]: newValue }))
   }
 
   const validateForm = (): boolean => {
@@ -50,6 +60,10 @@ const Form: React.FC = () => {
       errors.address = 'Address is required'
       isValid = false
     }
+    if (!emailValidator.test(formData.email.trim())) {
+      errors.email = 'Please enter valid email'
+      isValid = false
+    }
     if (!formData.email.trim()) {
       errors.email = 'Email is required'
       isValid = false
@@ -69,6 +83,7 @@ const Form: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+    setSubmitting(true)
 
     if (validateForm()) {
       console.log('Form Data:', formData)
@@ -96,14 +111,15 @@ const Form: React.FC = () => {
 
           setNewUserID(data.id)
           console.log(data)
+          setIsFlipped(true)
         } else {
           console.log('Create Failed')
         }
       } catch (error) {
         console.log('Error in Create User: ', error)
       }
-      setIsFlipped(true)
     }
+    setSubmitting(false)
   }
 
   return (
@@ -169,6 +185,8 @@ const Form: React.FC = () => {
                       className='w-full rounded-lg border-gray-200 p-4 text-sm shadow-sm'
                       value={formData.birthdate}
                       onChange={handleChange}
+                      min='1900-01-01'
+                      max={new Date().toISOString().split('T')[0]}
                     />
                     <p
                       style={{ opacity: errors.birthdate ? 1 : 0 }}
@@ -239,7 +257,7 @@ const Form: React.FC = () => {
                     className='w-full rounded-lg border-gray-200 p-4 text-sm shadow-sm'
                     placeholder='Contact Number'
                     value={formData.contactNumber}
-                    onChange={handleChange}
+                    onChange={handleContactChange}
                   />
                   <p
                     style={{ opacity: errors.contactNumber ? 1 : 0 }}
@@ -270,7 +288,17 @@ const Form: React.FC = () => {
                   type='submit'
                   className='block w-full rounded-lg bg-indigo-600 px-5 py-3 text-sm font-medium text-white'
                 >
-                  Generate QR
+                  {!submitting ? (
+                    <p>Generate QR</p>
+                  ) : (
+                    <section className='dots-container'>
+                      <div className='dot'></div>
+                      <div className='dot'></div>
+                      <div className='dot'></div>
+                      <div className='dot'></div>
+                      <div className='dot'></div>
+                    </section>
+                  )}
                 </button>
               </form>
             </div>

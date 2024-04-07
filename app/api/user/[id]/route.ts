@@ -8,10 +8,10 @@ export async function GET(req: NextRequest,{ params }: { params: { id: number } 
 
         const data = await User.findById(params.id)
         
-        return NextResponse.json({message: "Routine fetched", data: data}, {status:201})
+        return NextResponse.json({message: "User fetched", data: data}, {status:201})
     } catch (error) {
         return NextResponse.json(
-            {message: "Error getting routine"}, {status: 500}
+            {message: "Error getting user"}, {status: 500}
         )
     }
 }
