@@ -2,23 +2,6 @@
 import React, { useState } from 'react'
 import { FormData, FormErrors } from '@/types/FormTypes'
 import QRComponent from './QRComponent'
-import { useMutation, gql } from '@apollo/client'
-
-const CREATE_USER_MUTATION = gql`
-  mutation CreateUser($userInput: UserInput) {
-    createUser(userInput: $userInput) {
-      id
-      firstName
-      lastName
-      email
-      birthdate
-      gender
-      address
-      contactNumber
-      password
-    }
-  }
-`
 
 const Form: React.FC = () => {
   const [formData, setFormData] = useState<FormData>({
@@ -32,12 +15,8 @@ const Form: React.FC = () => {
     password: '',
   })
   const [isFlipped, setIsFlipped] = useState<boolean>(false)
-  const [createdUserID, setCreatedUserID] = useState<string>('')
 
   const [errors, setErrors] = useState<FormErrors>({})
-
-  const [createUser, { data, loading, error }] =
-    useMutation(CREATE_USER_MUTATION)
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
@@ -87,19 +66,12 @@ const Form: React.FC = () => {
     return isValid
   }
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
     if (validateForm()) {
       console.log('Form Data:', formData)
-      try {
-        const res = await createUser({ variables: { userInput: formData } })
-        console.log(res)
-        setIsFlipped(true)
-      } catch (e) {
-        setIsFlipped(false)
-        console.error('Error creating user', e)
-      }
+      setIsFlipped(true)
     }
   }
 
@@ -272,7 +244,7 @@ const Form: React.FC = () => {
               </form>
             </div>
             <div className='flip-card-back'>
-              <QRComponent id={createdUserID} setIsFlipped={setIsFlipped} />
+              <QRComponent id='test' setIsFlipped={setIsFlipped} />
             </div>
           </div>
         </div>

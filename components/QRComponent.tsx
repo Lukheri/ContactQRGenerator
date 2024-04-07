@@ -14,7 +14,7 @@ const QRComponent = ({
       <p>Scan the QR code to see your contact information!</p>
       <QRCode
         className='h-[150px] max-h-[300px] w-full object-cover md:h-full'
-        value={`http://localhost:3000/${id}`}
+        value={`https://ar.1clickdesign.com/`}
       />
       <button
         onClick={() => setIsFlipped(false)}
